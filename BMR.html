@@ -1,97 +1,55 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="UTF-8">
-  <title>計算BMR</title>
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: Arial, Helvetica, sans-serif;
-    }
-    body {
-      background-color: #f5f5f5;
-    }
-    h1 {
-      text-align: center;
-      margin-top: 50px;
-    }
-    form {
-      max-width: 400px;
-      margin: 0 auto;
-      background-color: #fff;
-      border-radius: 5px;
-      padding: 20px;
-      box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.2);
-    }
-    label {
-      display: block;
-      margin-bottom: 10px;
-      font-size: 18px;
-    }
-    input[type="number"],
-    input[type="text"],
-    select {
-      width: 100%;
-      padding: 10px;
-      font-size: 18px;
-      border-radius: 5px;
-      border: 1px solid #ccc;
-      margin-bottom: 20px;
-      transition: border-color 0.3s ease-in-out;
-    }
-    input[type="number"]:focus,
-    input[type="text"]:focus,
-    select:focus {
-      border-color: #66afe9;
-    }
-    .button-container {
-      display: flex;
-      justify-content: center;
-      margin-top: 20px;
-    }
-    input[type="submit"] {
-      background-color: #66afe9;
-      color: #fff;
-      font-size: 18px;
-      border-radius: 5px;
-      border: none;
-      padding: 10px 20px;
-      cursor: pointer;
-      transition: background-color 0.3s ease-in-out;
-    }
-    input[type="submit"]:hover {
-      background-color: #337ab7;
-    }
-  </style>
+	<title>BMR 計算器</title>
 </head>
 <body>
-  <h1>計算BMR</h1>
-  <form onsubmit="calculateBMR(event)">
-    <label for="gender">性別</label>
-    <select id="gender" name="gender" required>
-      <option value="">請選擇</option>
-      <option value="male">男性</option>
-      <option value="female">女性</option>
-    </select>
-    <label for="age">年齡</label>
-    <input type="number" id="age" name="age" min="0" max="120" required>
-    <label for="height">身高 (公分)</label>
-    <input type="number" id="height" name="height" min="0" max="300" required>
-    <label for="weight">體重 (公斤)</label>
-    <input type="number" id="weight" name="weight" min="0" max="300" required>
-    <div class="button-container">
-      <input type="submit" value="計算">
-    </div>
-    <p id="result"></p>
-  </form>
+	<h1>BMR 計算器</h1>
+	<p>使用此計算器來計算您的基礎代謝率 (BMR)。</p>
+	<form>
+		<label for="gender">性別：</label>
+		<select name="gender" id="gender">
+			<option value="male">男性</option>
+			<option value="female">女性</option>
+		</select>
+		<br>
+		<label for="age">年齡：</label>
+		<input type="number" name="age" id="age" required>
+		<br>
+		<label for="height">身高 (cm)：</label>
+		<input type="number" name="height" id="height" required>
+		<br>
+		<label for="weight">體重 (kg)：</label>
+		<input type="number" name="weight" id="weight" required>
+		<br>
+		<input type="submit" value="計算">
+	</form>
+	<div id="result"></div>
+	<script>
+		// 當提交表單時，執行計算BMR的函數
+		document.querySelector('form').addEventListener('submit', calculateBMR);
 
-  <script>
-    function calculateBMR(event) {
-      event.preventDefault();
+		function calculateBMR(event) {
+			event.preventDefault(); // 防止提交表單時刷新頁面
 
-      // 取得表單元素
-      const form = event.target;
+			// 從表單中獲取值
+			const gender = document.querySelector('#gender').value;
+			const age = parseInt(document.querySelector('#age').value);
+			const height = parseInt(document.querySelector('#height').value);
+			const weight = parseInt(document.querySelector('#weight').value);
 
-      // 取得表單
+			// 根據性別計算BMR
+			let bmr;
+			if (gender === 'male') {
+				bmr = 88.36 + (13.4 * weight) + (4.8 * height) - (5.7 * age);
+			} else if (gender === 'female') {
+				bmr = 447.6 + (9.2 * weight) + (3.1 * height) - (4.3 * age);
+			}
+
+			// 顯示結果
+			const resultDiv = document.querySelector('#result');
+			resultDiv.innerHTML = `您的基礎代謝率是：${bmr.toFixed(2)} 千卡路里/天。`;
+		}
+	</script>
+</body>
+</html>
