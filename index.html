@@ -131,8 +131,31 @@
   <main id="main">
 
     <!-- ======= About Section ======= -->
+  <script>
+    $(document).ready(function() {
+      var id = prompt("請輸入會員帳號");
+      if (id=='abc')
+        $('#about').show();
+      else
+        $('#about').hide();
+    });
+</script>
+
+ <script>
+    $(document).ready(function() {
+      var validIds = ['id1', 'id2', 'id3'];
+      var id = prompt("請輸入會員帳號");
+      if (validIds.includes(id))
+        $('#about').show();
+      else
+        $('#about').hide();
+    });
+  </script>
+
+
     <section id="about" class="about">
       <div class="container" data-aos="fade-up">
+
 
         <div class="row">
           <div class="col-lg-6 order-1 order-lg-2" data-aos="fade-left" data-aos-delay="100">
